@@ -37,14 +37,12 @@ Used to change the key after creating an instance of the class.
 ```
 encrypt_data(plaintext) -> str, int
 
-return data -> (encrypted text, length of plaintext)
+return data -> (encrypted text, length_of_plaintext)
 ```
 Used to encrypt plaintext with key.
 
 ```
-decrypt_data(ciphertext, length) -> str
+decrypt_data(ciphertext, length_of_plaintext) -> str
 
 return data -> plaintext
 ```
-ciphertext - encrypted data in bytearray format
-length - length of plaintext
