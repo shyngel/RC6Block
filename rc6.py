@@ -5,10 +5,8 @@ class RC6:
         v = self.__check_key_validity(key)
         key += '\0' * v
         self.__key = self.__prepare_key(key)
-    def __random_binary_num(self, block_size=4):
-        return self.__helper.bytes_to_bits_binary(os.urandom(block_size))
     def __decrypt(self, block: str):
-        encoded = self.__block_to_uint(block)
+        encoded = self.__helper.block_to_uint(block)
         orgi = []
         cipher = []
         if(len(encoded) < 5):
@@ -46,10 +44,10 @@ class RC6:
     def __encrypt(self, block: str):
         if len(block) > 16:
             raise Exception(f"Block size is {len(block)} bytes. Expected less than 16.")
-        encoded = self.__block_to_uint(block)
+        encoded = self.__helper.block_to_uint(block)
         if len(encoded) < 4:
             while len(encoded) != 4:
-                encoded.append(self.__random_binary_num())
+                encoded.append(self.__helper.__random_binary_num())
         cipher = []
         orgi = []
         if(len(encoded) < 5):
@@ -83,30 +81,6 @@ class RC6:
             cipher.append(C)
             cipher.append(D)
         return orgi,cipher
-    def __block_to_uint(self,sentence: str):
-        
-        encoded = []
-        i = 0
-        r = ''
-        while i < len(sentence):
-            n = self.__helper.bytes_to_bits_binary(sentence[i:i+4])
-            encoded.append(n)
-            i += 4
-        return encoded
-    def __uint_to_bytearray(self,nums: list):
-        l_tx = []
-        for i in nums:
-            s = bin(i)[2:]
-            s = '0' * (32 - len(s)) + s
-            A = s[0:8]
-            B = s[8:16]
-            C = s[16:24]
-            D = s[24:32]
-            l_tx.append(int(D,2))
-            l_tx.append(int(C,2))
-            l_tx.append(int(B,2))
-            l_tx.append(int(A,2))
-        return l_tx
     def __prepare_key(self, key):
         r=12
         w=32
@@ -115,7 +89,7 @@ class RC6:
         s[0]=0xB7E15163
         for i in range(1,2*r+4):
             s[i]=(s[i-1]+0x9E3779B9)%(2**w)
-        encoded = self.__block_to_uint(key)
+        encoded = self.__helper.block_to_uint(key)
         enlength = len(encoded)
         l = []
         for i in encoded:
@@ -145,7 +119,7 @@ class RC6:
         while ind < len(data):
             a = min(len(data) - ind, 16)
             cipher,orgi = self.__decrypt(data[ind:ind+a])
-            all_text.extend(self.__uint_to_bytearray(orgi))
+            all_text.extend(self.__helper.uint_to_bytearray(orgi))
             ind+=a
         return all_text[:length]
     def encrypt_data(self, data):
@@ -154,7 +128,7 @@ class RC6:
         while ind < len(data):
             a = min(len(data) - ind, 16)
             cipher,orgi = self.__encrypt(data[ind:ind+a])
-            all_text.extend(self.__uint_to_bytearray(orgi))
+            all_text.extend(self.__helper.uint_to_bytearray(orgi))
             ind+=a
         return all_text, ind
     
@@ -168,6 +142,8 @@ class _helper:
         return (x >> n) | (mask_bits << (bits - n))
     def rol(self,x, n, bits = 32):
         return self.ror(x, bits - n,bits)
+    def random_binary_num(self, block_size=4):
+        return self.__helper.bytes_to_bits_binary(os.urandom(block_size))
     def bytes_to_bits_binary(self,byte_data):
         if isinstance(byte_data,str):
             temp = byte_data
@@ -176,3 +152,26 @@ class _helper:
                 byte_data.append(ord(i))  
         bits_data = bin(int.from_bytes(byte_data, byteorder='little'))[2:]
         return bits_data
+    def block_to_uint(self,sentence: str):
+        encoded = []
+        i = 0
+        r = ''
+        while i < len(sentence):
+            n = self.__helper.bytes_to_bits_binary(sentence[i:i+4])
+            encoded.append(n)
+            i += 4
+        return encoded
+    def uint_to_bytearray(self,nums: list):
+        l_tx = []
+        for i in nums:
+            s = bin(i)[2:]
+            s = '0' * (32 - len(s)) + s
+            A = s[0:8]
+            B = s[8:16]
+            C = s[16:24]
+            D = s[24:32]
+            l_tx.append(int(D,2))
+            l_tx.append(int(C,2))
+            l_tx.append(int(B,2))
+            l_tx.append(int(A,2))
+        return l_tx
