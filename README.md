@@ -42,7 +42,7 @@ return data -> (encrypted text, length of plaintext)
 Used to encrypt plaintext with key.
 
 ```
-decrypt_data(ciphertext, length) - > str
+decrypt_data(ciphertext, length) -> str
 
 return data -> plaintext
 ```
