@@ -25,8 +25,14 @@ Tested with a cpp implementation.
 
 ## Functions
 
-* encrypt.py and decrypt.py are used to encrypt and decrypt using user input
+*The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
+*change_key() -> None
+*Used to change the key after creating an instance of the class
 
-* cenc.py and cdec.py are used to encrypt and decrypt using command line input
+*encrypt_data(plaintext) -> str, int
+*return data -> (encrypted text, length of plaintext)
 
-* helper.py contains helper functions 
+*decrypt_data(ciphertext, length) - > str
+*ciphertext - encrypted data in bytearray format
+*length - length of plaintext
+*return data -> plaintext
