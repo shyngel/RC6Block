@@ -1,7 +1,7 @@
 RC6Block
 ================
 
-Modern implementation of RC6 encryption in python.
+Easy to use implementation of RC6 encryption in python.
 
 Tested with a cpp implementation.
 
@@ -25,14 +25,14 @@ Tested with a cpp implementation.
 
 ## Functions
 
-*The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
-*change_key() -> None
-*Used to change the key after creating an instance of the class
+* The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
+* change_key() -> None
+* Used to change the key after creating an instance of the class
 
-*encrypt_data(plaintext) -> str, int
-*return data -> (encrypted text, length of plaintext)
+* encrypt_data(plaintext) -> str, int
+* return data -> (encrypted text, length of plaintext)
 
-*decrypt_data(ciphertext, length) - > str
-*ciphertext - encrypted data in bytearray format
-*length - length of plaintext
-*return data -> plaintext
+* decrypt_data(ciphertext, length) - > str
+* ciphertext - encrypted data in bytearray format
+* length - length of plaintext
+* return data -> plaintext
