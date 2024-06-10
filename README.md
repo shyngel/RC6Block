@@ -27,17 +27,23 @@ Tested with a cpp implementation.
 
 The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
 
-```change_key() -> None
+```
+change_key() -> None
+
 return data -> None
 ```
 Used to change the key after creating an instance of the class.
 
-```encrypt_data(plaintext) -> str, int
+```
+encrypt_data(plaintext) -> str, int
+
 return data -> (encrypted text, length of plaintext)
 ```
 Used to encrypt plaintext with key.
 
-```decrypt_data(ciphertext, length) - > str
+```
+decrypt_data(ciphertext, length) - > str
+
 return data -> plaintext
 ```
 ciphertext - encrypted data in bytearray format
