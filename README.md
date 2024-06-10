@@ -25,14 +25,16 @@ Tested with a cpp implementation.
 
 ## Functions
 
-* The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
-* change_key() -> None
-* Used to change the key after creating an instance of the class
+The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
 
-* encrypt_data(plaintext) -> str, int
-* return data -> (encrypted text, length of plaintext)
+``` change_key() -> None```
+Used to change the key after creating an instance of the class.
 
-* decrypt_data(ciphertext, length) - > str
-* ciphertext - encrypted data in bytearray format
-* length - length of plaintext
-* return data -> plaintext
+```encrypt_data(plaintext) -> str, int```
+```return data -> (encrypted text, length of plaintext)```
+Used to encrypt plaintext with key.
+
+```decrypt_data(ciphertext, length) - > str```
+```return data -> plaintext```
+ciphertext - encrypted data in bytearray format
+length - length of plaintext
