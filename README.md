@@ -28,6 +28,7 @@ Tested with a cpp implementation.
 The main class is rc6, the constructor accepts the encryption key. There are functions in this class:
 
 ```change_key() -> None
+return data -> None
 ```
 Used to change the key after creating an instance of the class.
 
